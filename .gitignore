@@ -1,0 +1,32 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+
+# C++ build
+build/
+*.so
+*.pyd
+*.dll
+*.o
+*.obj
+cmake-build*/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output images
+examples/output/
+
+# Test images (keep the directory)
+!tests/test_images/.gitkeep
