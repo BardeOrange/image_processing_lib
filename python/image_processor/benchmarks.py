@@ -77,7 +77,7 @@ def benchmark(func_python, func_cpp, args_python, args_cpp, name, runs=3):
     print(f"{'=' * 50}")
     print(f"  Python:  {avg_python:.4f}s")
     print(f"  C++:     {avg_cpp:.4f}s")
-    print(f"  Speedup: {speedup:.1f}x ⚡")
+    print(f"  Speedup: {speedup:.1f}x")
 
     return {
         "name": name,
@@ -89,8 +89,8 @@ def benchmark(func_python, func_cpp, args_python, args_cpp, name, runs=3):
 
 def run_all_benchmarks(width=800, height=600):
     """Run all benchmarks with a random image."""
-    print("🚀 Generating random test image...")
-    print(f"   Size: {width}x{height} ({width * height:,} pixels)\n")
+    print("Generating random test image...")
+    print(f"Size: {width}x{height} ({width * height:,} pixels)\n")
 
     # Convert to regular Python ints to avoid uint8 overflow
     data = [

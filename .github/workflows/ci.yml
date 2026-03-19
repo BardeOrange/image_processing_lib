@@ -15,6 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Verify CMakeLists.txt exists
+        run: |
+          echo "=== Files in root ==="
+          ls -la
+          echo "=== CMakeLists.txt ==="
+          cat CMakeLists.txt
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -28,11 +35,17 @@ jobs:
 
       - name: Build C++ module
         run: |
-          mkdir build && cd build
-          cmake .. -DPYBIND11_FINDPYTHON=ON
-          cmake --build . --config Release
-          cp imgproc_cpp*.so ../  || true
-          cp imgproc_cpp*.pyd ../ || true
+          cmake -S . -B build -DPYBIND11_FINDPYTHON=ON
+          cmake --build build --config Release
+
+      - name: Copy C++ module
+        run: |
+          find build -name "imgproc_cpp*" -type f
+          find build -name "imgproc_cpp*.so" -exec cp {} . \;
+          ls -la imgproc_cpp*
+
+      - name: Verify module
+        run: python -c "import imgproc_cpp; print('Module loaded OK')"
 
       - name: Run tests
         run: pytest tests/ -v

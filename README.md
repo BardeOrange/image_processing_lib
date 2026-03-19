@@ -3,10 +3,10 @@
 A high-performance image processing library with a C++ core and a clean Python
 interface. Built with pybind11 to bridge C++ speed with Python convenience.
 
-![CI](https://github.com/YOUR_USERNAME/image-processing-lib/actions/workflows/ci.yml/badge.svg)
-![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
+![CI](https://github.com/BardeOrange/image_processing_lib/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.13%2B-blue?logo=python)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus)
-![License](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-FREE-green)
 
 ---
 
@@ -14,13 +14,11 @@ interface. Built with pybind11 to bridge C++ speed with Python convenience.
 
 Processing an 800×600 image (480,000 pixels):
 
-| Filter | Python | C++ | Speedup |
-|---|---|---|---|
-| Grayscale | 0.3245s | 0.0089s | **36x** ⚡ |
-| Invert | 0.2104s | 0.0045s | **47x** ⚡ |
-| Box Blur (r=2) | 4.1230s | 0.0512s | **80x** ⚡ |
-
-> Replace these numbers with your actual benchmark results!
+| Filter | Python  | C++     | Speedup |
+|---|---------|---------|---------|
+| Grayscale | 0.6570s | 0.0639s | **10x** |
+| Invert | 0.1377  | 0.0637s | **2x**  |
+| Box Blur (r=2) | 9.8677s | 0.2783s | **35x**  |
 
 ---
 
@@ -31,7 +29,7 @@ Processing an 800×600 image (480,000 pixels):
 - **Python API** — Clean, intuitive interface with method chaining
 - **CLI Tool** — Process images directly from terminal
 - **Benchmarks** — Built-in speed comparison (C++ vs Python)
-- **Comprehensive Tests** — 30+ tests with pytest
+- **Comprehensive Tests** — 33 tests with pytest
 - **pybind11 Bridge** — Seamless C++ to Python integration
 
 ---
@@ -103,7 +101,7 @@ image-processing-lib/
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.13+
 - C++17 compiler (MSVC, GCC, or Clang)
 - CMake 3.16+
 
@@ -111,8 +109,8 @@ image-processing-lib/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/image-processing-lib.git
-cd image-processing-lib
+git clone https://github.com/BardeOrange/image_processing_lib.git
+cd image_processing_lib
 ```
 
 2. **Create virtual environment**
@@ -219,7 +217,7 @@ result = imgproc_cpp.grayscale(pixels, 3, 1)
 ### Run Demo (All Filters)
 
 ```bash
-python examples/demo.py your_photo.jpg
+python examples/demo.py Lenna.jpg
 # Outputs 12 processed images to examples/output/
 ```
 
@@ -243,6 +241,13 @@ pytest tests/ --cov=python --cov-report=term-missing -v
 ```bash
 python python/image_processor/benchmarks.py
 ```
+---
+
+## Troubleshooting
+```bash
+If you have an error about imgproc, find the file imgproc_cpp.pyd 
+in build/Release/ and copy it in your directory
+```
 
 Output:
 ```
@@ -252,23 +257,23 @@ Output:
 ==================================================
   Grayscale
 ==================================================
-  Python:  0.3245s
-  C++:     0.0089s
-  Speedup: 36.5x ⚡
+  Python:  0.6570s
+  C++:     0.0639s
+  Speedup: 10.3x
 
 ==================================================
   Invert
 ==================================================
-  Python:  0.2104s
-  C++:     0.0045s
-  Speedup: 46.8x ⚡
+  Python:  0.1377s
+  C++:     0.0637s
+  Speedup: 2.2x
 
 ==================================================
   Box Blur (radius=2)
 ==================================================
-  Python:  4.1230s
-  C++:     0.0512s
-  Speedup: 80.5x ⚡
+  Python:  9.8677s
+  C++:     0.2783s
+  Speedup: 35.5x
 ```
 
 ---
