@@ -15,13 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify CMakeLists.txt exists
-        run: |
-          echo "=== Files in root ==="
-          ls -la
-          echo "=== CMakeLists.txt ==="
-          cat CMakeLists.txt
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -33,9 +26,18 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Get pybind11 CMake dir
+        id: pybind11
+        run: |
+          PYBIND11_DIR=$(python -c "import pybind11; print(pybind11.get_cmake_dir())")
+          echo "cmake_dir=$PYBIND11_DIR" >> $GITHUB_OUTPUT
+          echo "Found pybind11 at: $PYBIND11_DIR"
+
       - name: Build C++ module
         run: |
-          cmake -S . -B build -DPYBIND11_FINDPYTHON=ON
+          cmake -S . -B build \
+            -DPYBIND11_FINDPYTHON=ON \
+            -Dpybind11_DIR=${{ steps.pybind11.outputs.cmake_dir }}
           cmake --build build --config Release
 
       - name: Copy C++ module
